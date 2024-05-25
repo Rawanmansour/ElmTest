@@ -25,7 +25,7 @@ namespace Migrations
 
             var upgrader = BuildUpgrader(AppConfiguration);
 
-            var connectionString = AppConfiguration.GetConnectionString("DefaultConnection");
+            var connectionString = AppConfiguration.GetConnectionString("ElmConnection");
             EnsureDatabase.For.SqlDatabase(connectionString);
 
             if (!CheckIfDbUserShouldBeCreated(AppConfiguration, upgrader))
@@ -54,7 +54,7 @@ namespace Migrations
 
         private static UpgradeEngine BuildUpgrader(IConfiguration config, bool createDbUserIfNotExist = true)
         {
-            var connectionString = config.GetConnectionString("DefaultConnection");
+            var connectionString = config.GetConnectionString("ElmConnection");
             var database = ExtractDbNameFromConnectionString(connectionString ?? throw new Exception("Error finding DefaultConnection in appsettings"));
 
             var varList = config.GetSection("ScriptVariables")
